@@ -1,19 +1,25 @@
 import { MenuItemProps } from "./menuConfigType";
 
 export const MenuItem = ({ item, isOpen, toggleState }: MenuItemProps) => {
+  const titleLowerCase = item.title.toLowerCase();
+
   return (
-    <div data-test-id={`first-level-${item.title}`}>
-      <p>{item.title}</p>
+    <div data-test-id={`first-level-${titleLowerCase}`}>
+      <p>{titleLowerCase}</p>
       {item.subItems?.length && (
         <>
-          <button data-test-id={`button-${item.title}`} onClick={toggleState}>
+          <button
+            data-test-id={`button-${titleLowerCase}`}
+            onClick={toggleState}
+          >
             {isOpen ? "Hide" : "Expand"}
           </button>
           {isOpen && (
-            <ul data-test-id={`ul-${item.title}`}>
+            <ul data-test-id={`ul-${titleLowerCase}`}>
               {item.subItems.map((subitem) => {
+                const subitemLowerCase = subitem.toLowerCase();
                 return (
-                  <li data-test-id={`li-${item.title}-${subitem}`}>
+                  <li data-test-id={`li-${titleLowerCase}-${subitemLowerCase}`}>
                     {subitem}
                   </li>
                 );
