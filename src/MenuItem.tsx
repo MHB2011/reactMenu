@@ -5,7 +5,7 @@ export const MenuItem = ({ item, isOpen, toggleState }: MenuItemProps) => {
 
   return (
     <div data-test-id={`first-level-${titleLowerCase}`}>
-      <p>{titleLowerCase}</p>
+      <p>{item.title}</p>
       {item.subItems?.length && (
         <>
           <button
