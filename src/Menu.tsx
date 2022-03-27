@@ -1,6 +1,8 @@
-import { useState } from "react";
+import { useReducer } from "react";
 import { MenuItem } from "./MenuItem";
 import { MenuProps, MenuStateType } from "./menuConfigType";
+import { menuReducer } from "./menuReducer";
+import { MenuActionType } from "./MenuActionType";
 
 export const Menu = ({ menuConfig }: MenuProps) => {
   const initialState: MenuStateType = menuConfig.map((menuItem) => {
@@ -9,7 +11,8 @@ export const Menu = ({ menuConfig }: MenuProps) => {
       isOpen: false,
     };
   });
-  const [menuState, setMenuState] = useState<MenuStateType>(initialState);
+
+  const [menuState, dispatch] = useReducer(menuReducer, initialState);
 
   return (
     <div>
@@ -23,12 +26,9 @@ export const Menu = ({ menuConfig }: MenuProps) => {
             item={item}
             isOpen={isOpen}
             toggleState={() => {
-              setMenuState((prev) => {
-                return prev.map((i) =>
-                  i.menuName === item.title.toLowerCase()
-                    ? { ...i, isOpen: !i.isOpen }
-                    : { ...i, isOpen: false }
-                );
+              dispatch({
+                type: MenuActionType.TOGGLE,
+                payload: item.title.toLowerCase(),
               });
             }}
           />
