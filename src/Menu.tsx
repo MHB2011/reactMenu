@@ -18,6 +18,7 @@ export const Menu = ({ menuConfig }: MenuProps) => {
 
         return (
           <MenuItem
+            key={menuItemTitle}
             item={item}
             isOpen={isOpen}
             toggleState={() => {
